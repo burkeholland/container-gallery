@@ -40,7 +40,7 @@
             @click="downloadTemplate(template.name)"
           >
             <div class="box">
-              <div class="content">{{ template.name }}</div>
+              <div class="content">{{ template.title }}</div>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
           computed: {
             filteredTemplates() {
               return this.templates.filter((item) => {
-                return item.name.indexOf(this.filter) > -1;
+                return item.name.indexOf(this.filter.toLowerCase()) > -1;
               });
             },
           },

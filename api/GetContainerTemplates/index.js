@@ -11,11 +11,18 @@ module.exports = async function (context, req) {
       }
     );
 
-    // this folder contains all of the container template folders
-    // return only the items that are folders
-    const folders = results.data.filter((item) => {
-      return item.type === "dir";
-    });
+    const folders = results.data.reduce((filtered, item) => {
+      if (item.type === "dir") {
+        filtered.push({
+          name: item.name,
+          title: item.name
+            .split("-")
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(" "),
+        });
+      }
+      return filtered;
+    }, []);
 
     context.res = {
       body: folders,
