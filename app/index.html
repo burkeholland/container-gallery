@@ -64,7 +64,7 @@
           computed: {
             filteredTemplates() {
               return this.templates.filter((item) => {
-                return item.name.indexOf(this.filter.toLowerCase()) > -1;
+                return item.title.indexOf(this.filter.toLowerCase()) > -1;
               });
             },
           },
