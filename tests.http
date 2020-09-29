@@ -1,2 +1,2 @@
 GET https://api.github.com/repos/microsoft/vscode-dev-containers/contents/containers
-Authorization: token d9401d0e42fbe7c44175092d0a5c425ad48cd6ab
+Authorization: token 98f635ae190a842e9b33841190bd5dd02d1bb0f3

@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = async function (context, req) {
   const results = await axios.get(
-    `https://api.github.com/repos/microsoft/vscode-dev-containers/contents/containers`,
+    `https://api.github.com/repos/${process.env.REPO}/contents/${process.env.FOLDER}`,
     {
       headers: {
         Authorization: `token ${process.env.GITHUB_PAT}`,

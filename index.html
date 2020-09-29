@@ -5,21 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
     />
     <title>Remote Container Gallery</title>
   </head>
+  <style>
+    .is-clickable {
+      cursor: pointer;
+    }
+  </style>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-narrow">
+            <h1 class="is-size-1">Container Gallery</h1>
+          </div>
+          <div class="column">
+            <div class="control">
+              <input
+                class="input"
+                v-model="filter"
+                type="text"
+                placeholder="Search gallery"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="columns section is-multiline">
+          <div
+            class="column is-3 is-clickable"
+            v-for="template in filteredTemplates"
+            :key="template.name"
+            @click="downloadTemplate(template.name)"
+          >
+            <div class="box">
+              <div class="content">{{ template.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.20.0/dist/axios.min.js"></script>
     <script>
       (function () {
         const app = new Vue({
           el: "#app",
-          data: {},
+          data: {
+            filter: "",
+            templates: [],
+          },
           mounted: function () {
-            axios.get("api/containers");
+            axios.get("api/containers").then((results) => {
+              this.templates = results.data;
+            });
+          },
+          computed: {
+            filteredTemplates() {
+              return this.templates.filter((item) => {
+                return item.name.indexOf(this.filter) > -1;
+              });
+            },
+          },
+          methods: {
+            downloadTemplate(template) {
+              window.open(`/api/download?template=${template}`);
+            },
           },
         });
       })();

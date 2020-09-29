@@ -7,7 +7,12 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "axios": "^0.20.0"
+    "archiver": "^5.0.2",
+    "axios": "^0.20.0",
+    "base64-stream": "^1.0.0",
+    "github-download-parts": "^2.1.0",
+    "jszip": "^3.5.0",
+    "temp-dir": "^2.0.0"
   },
   "devDependencies": {}
 }
