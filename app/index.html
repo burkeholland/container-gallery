@@ -34,6 +34,15 @@
         </div>
         <div class="columns section is-multiline">
           <div
+            v-if="loading"
+            class="column is-half is-offset-one-quarter has-text-centered"
+          >
+            <progress class="progress is-small is-primary" max="100">
+              15%
+            </progress>
+            <h1 class="is-size-4">Loading templates...</h1>
+          </div>
+          <div
             class="column is-3 is-clickable"
             v-for="template in filteredTemplates"
             :key="template.name"
@@ -55,10 +64,12 @@
           data: {
             filter: "",
             templates: [],
+            loading: true,
           },
           mounted: function () {
             axios.get("api/containers").then((results) => {
               this.templates = results.data;
+              this.loading = false;
             });
           },
           computed: {
